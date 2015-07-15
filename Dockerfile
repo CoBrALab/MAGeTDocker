@@ -20,7 +20,7 @@ RUN curl -SL http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/minc-toolkit-
 RUN git clone https://github.com/CobraLab/MAGeTbrain.git
 
 # Download and install pyminc MAGeTBrain dependency
-RUN git clone https://github.com/Mouse-Imaging-Centre/pyminc.git && python /pyminc/setup.py install
+RUN git clone https://github.com/Mouse-Imaging-Centre/pyminc.git && cd /pyminc && python setup.py install
 
 #Enable minc commands and mb commands
 RUN echo "source /opt/minc-itk4/minc-toolkit-config.sh" >> /etc/bash.bashrc
