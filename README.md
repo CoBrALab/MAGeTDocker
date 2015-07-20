@@ -23,7 +23,7 @@ Or build the container yourself:
 > docker build -t magetdocker .
 ```
 
-Now we need to startup the docker container, and connect it to a directory on your machine to run MAGeTbrain
+Now we need to startup the docker container, and connect it to a local directory on your machine to run MAGeTbrain:
 ```
 > docker run -i -v /path/to/my/working/directory:/maget -t gdevenyi/magetdocker /bin/bash
 #Or if you built your own container
@@ -35,14 +35,15 @@ You will now have a terminal running within the docker container, in your workin
 > mb init
 ```
 
-Now your working directory will have the MAGeTbrain directory structure, where you can place your atlases, templates and brains.
+Now your working directory (i.e. /path/to/my/working/directory) will have the MAGeTbrain directory structure, where you can place your atlases, templates and brains.
+You do this outside the docker container.
 
 Now we run the first stage of MAGeTbrain
 ```
-> mb run -q parallel
+> mb run -q parallel -j <NUMBER OF PARALLEL JOBS>
 ```
 
 When this is complete, we run the second stage:
 ```
-> mb run vote -q parallel
+> mb run vote -q parallel -j <NUMBER OF PARALLEL JOBS>
 ```
