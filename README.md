@@ -29,21 +29,9 @@ Now we need to startup the docker container, and connect it to a local directory
 #Or if you built your own container
 > docker run -i -v /path/to/my/working/directory:/maget -t magetdocker /sbin/my_init -- /bin/bash --login
 ```
+You will now have a terminal running within the docker container, connected to the working directory you specified
 
-You will now have a terminal running within the docker container, in your working directory, you must initalize the directory structure:
+Now startup the automated preprocessing + MAGeTbrain pipeline, specifying the number of CPUs the computer has, and follow the prompts:
 ```
-> mb init
-```
-
-Now your working directory (i.e. /path/to/my/working/directory) will have the MAGeTbrain directory structure, where you can place your atlases, templates and brains.
-You do this outside the docker container.
-
-Now we run the first stage of MAGeTbrain
-```
-> mb run -q parallel -j <NUMBER OF PARALLEL JOBS>
-```
-
-When this is complete, we run the second stage:
-```
-> mb run vote -q parallel -j <NUMBER OF PARALLEL JOBS>
+> maget-go.sh <NCPUS>
 ```
