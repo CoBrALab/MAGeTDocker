@@ -25,9 +25,9 @@ Or build the container yourself:
 
 Now we need to startup the docker container, and connect it to a local directory on your machine to run MAGeTbrain:
 ```
-> docker run -i -v /path/to/my/working/directory:/maget -t gdevenyi/magetdocker /bin/bash
+> docker run -i -v /path/to/my/working/directory:/maget -t gdevenyi/magetdocker /sbin/my_init -- /bin/bash --login
 #Or if you built your own container
-> docker run -i -v /path/to/my/working/directory:/maget -t magetdocker /bin/bash
+> docker run -i -v /path/to/my/working/directory:/maget -t magetdocker /sbin/my_init -- /bin/bash --login
 ```
 
 You will now have a terminal running within the docker container, in your working directory, you must initalize the directory structure:
