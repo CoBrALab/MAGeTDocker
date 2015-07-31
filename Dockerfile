@@ -29,6 +29,7 @@ RUN curl -SL http://download.bpipe.org/versions/bpipe-0.9.8.7.tar.gz -o /tmp/bpi
     && rm /tmp/bpipe-0.9.8.7.tar.gz
 
 # Download minc-bpipe-library
+ENV mincbpipelibrary 2015.07.30
 RUN git clone https://github.com/CobraLab/minc-bpipe-library.git --branch maget_preprocess /minc-bpipe-library
 
 RUN mkdir /mni_icbm152_nlin_sym_09c_minc2 \
