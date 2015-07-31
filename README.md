@@ -38,3 +38,10 @@ Now startup the automated preprocessing + MAGeTbrain pipeline, specifying the nu
 
 After the pipeline is complete, you will find labels in ``<WORKING_DIRECTORY>/output/fusion/majority_vote`` and
 quality control images in ``<WORKING_DIRECTORY>/QC``
+
+#Note for OSX and Windows users
+Docker on OSX and Windows runs through a virtual machine (VM) which limits the amount of memory docker can use by default
+to 2GB of RAM. MAGeTbrain is a memory-intensive application, approximately 3GB of RAM per parallel subject running through
+the pipeline.
+
+To increase the amount of RAM docker can use in OSX or Windows, see the help post here https://stackoverflow.com/questions/24422123/change-boot2docker-memory-assignment
