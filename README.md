@@ -13,7 +13,7 @@ The minimal steps for using this container are the following:
 
 Get the container from the autobuilds:
 ```
-> docker pull gdevenyi/magetdocker
+> docker pull gdevenyi/magetdocker:latest
 ```
 
 Or build the container yourself:
