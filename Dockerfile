@@ -47,7 +47,9 @@ RUN echo "umask u=rwx,g=rwx,o=rwx" >> /etc/profile
 RUN echo "chmod u=rwX,g=rwX,o=rwX -R /maget" >> /etc/profile
 RUN echo "echo export SHELL=/bin/bash >> /etc/profile"
 COPY maget-go.sh /MAGeTbrain/bin/
-
+COPY autocrop+ /MAGeTbrain/bin/
+COPY mincmontage /MAGeTbrain/bin/
+COPY labels_colors.map /
 
 #Setup so that all commands are run in data directory
 WORKDIR /maget

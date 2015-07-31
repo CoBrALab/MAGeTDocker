@@ -35,3 +35,6 @@ Now startup the automated preprocessing + MAGeTbrain pipeline, specifying the nu
 ```
 > maget-go.sh <NCPUS>
 ```
+
+After the pipeline is complete, you will find labels in ``<WORKING_DIRECTORY>/output/fusion/majority_vote`` and
+quality control images in ``<WORKING_DIRECTORY>/QC``

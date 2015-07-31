@@ -35,3 +35,10 @@ echo "Running MAGeT Stage 2"
 mb run -q parallel --processes $1 vote
 
 echo "MAGeT Complete, label files can be found in <WORKING_DIRECTORY>/output/fusion/majority_vote"
+
+mkdir -p /maget/QC
+
+for file in /maget/input/subjects/brains/*.mnc
+do
+mincmontage -isostep 1 -slices 16 $file /maget/output/fusion/majority_vote/$(basename $file .mnc)_labels.mnc /maget/QC/$(basename $file .mnc).png
+done
