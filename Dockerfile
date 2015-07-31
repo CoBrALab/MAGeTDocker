@@ -10,7 +10,7 @@ CMD ["/sbin/my_init"]
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install Dependencies
-RUN apt-get -y update && apt-get -y install git perl graphicsmagick-imagemagick-compat libstdc++6 libc6 python-minimal python-setuptools python-numpy python-scipy parallel default-jre-headless
+RUN apt-get -y update && apt-get -y install git perl graphicsmagick-imagemagick-compat libstdc++6 libc6 python-minimal python-setuptools python-numpy python-scipy parallel default-jre-headless nano
 
 #Install minc-toolkit-v2
 RUN curl -SL http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/minc-toolkit-1.9.10-20150710-Ubuntu_14.04-x86_64.deb -o /tmp/minc-toolkit-1.9.10-20150710-Ubuntu_14.04-x86_64.deb \
