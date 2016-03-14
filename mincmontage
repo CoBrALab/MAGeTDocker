@@ -183,7 +183,7 @@ foreach(@sagittal_slices){
 
   do_cmd('mincpik',
 	 '-sagittal', 
-	 "-lookup", "-discrete -lookup_table /labels_colors.map",
+	 "-lookup", "-discrete -lookup_table labels_colors.map",
 	 "-image_range", "0","114",
 	 '-slice', $_ ,
 	 "$labels", 
