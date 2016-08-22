@@ -71,7 +71,7 @@ die "$me: Couldn't find input file: $labels\n\n" if (!-e $labels);
 if(defined($outfile) && -e $outfile && !$opt{clobber}){
    die "$me: $outfile exists, -clobber to overwrite\n\n";
 }
-$tmpdir = &tempdir("$me-XXXXXXXXXXX", TMPDIR => 1, CLEANUP => 0);
+$tmpdir = &tempdir("$me-XXXXXXXXXXX", TMPDIR => 1, CLEANUP => 1);
 
 if (defined($opt{comparison_labels})) { 
   my $tmp_labels = "${tmpdir}/labels.mnc";
