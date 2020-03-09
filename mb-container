@@ -1,0 +1,14 @@
+#!/bin/bash
+set -euo pipefail
+
+container=$1
+shift
+
+singularity exec -B $(pwd):/maget --contain ${container} "mb $*"
+
+for job in $(ls -tr magetbrain-container-jobs/*meta)
+do
+  qbatch -n --header "read -r -d '' singularity_script << 'END'"
+    --footer "END" --footer "singularity exec -B $(pwd):/maget --contain ${container} \"\${singularity_script}\"" \
+	$(cat ${job}) $(dirname ${job})/$(basename ${job} .meta).joblist
+done
