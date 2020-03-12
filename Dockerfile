@@ -22,7 +22,7 @@ RUN curl -sSL https://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/minc-toolki
 RUN pip3 install pyminc
 
 # Download and install qbatch
-RUN pip3 install qbatch
+RUN pip3 install qbatch==2.2
 
 ####################################################################################################
 FROM base as builder
@@ -73,6 +73,9 @@ RUN cd /opt/minc-stuffs/minc-stuffs-0.1.25/ && python3 setup.py install
 #Enable minc commands and mb commands
 ENV PATH="/opt/ANTs/bin:${PATH}:/opt/bpipe-0.9.9.8/bin:/opt/minc-stuffs/bin:/opt/MAGeTbrain/bin/"
 ENV MB_ENV="/opt/MAGeTbrain/"
+
+#Set QBATCH settings
+ENV QBATCH_SYSTEM="container"
 
 #Variables set by minc-toolkit-config.sh
 ENV LD_LIBRARY_PATH="/opt/minc/1.9.17/lib:/opt/minc/1.9.17/lib/InsightToolkit"
