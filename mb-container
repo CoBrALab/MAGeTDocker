@@ -4,9 +4,9 @@ set -euo pipefail
 container=$1
 shift
 
-singularity exec --cleanenv -B $(pwd):/maget --contain ${container} "mb $*"
+singularity exec --pwd /maget --cleanenv -B $(pwd):/maget --contain ${container} mb $*
 
-for job in $(ls -tr magetbrain-container-jobs/*meta)
+for job in $(ls -tr magetbrain-container-jobs/*meta 2>/dev/null || true)
 do
   qbatch -n --header "read -r -d '' singularity_script << 'END'"
     --footer "END" --footer "singularity exec --cleanenv -B $(pwd):/maget --contain ${container} \"\${singularity_script}\"" \
