@@ -40,10 +40,14 @@ RUN apt-get update && apt-get install -y gnupg software-properties-common --no-i
 # Download MAGeTBrain
 RUN git clone -b simplified-labelmask https://github.com/CobraLab/MAGeTbrain.git /opt/MAGeTbrain
 
+# Download minc-bpipe-library
+RUN git clone https://github.com/CoBrALab/minc-bpipe-library.git /opt/minc-bpipe-library \
+    && rm /opt/minc-bpipe-library/bpipe.config
+
 #Download and build ANTs
 RUN mkdir -p /opt/ANTs/build && git clone https://github.com/ANTsX/ANTs.git /opt/ANTs/src \
     && cd /opt/ANTs/src \
-    && git checkout b99b84051c5ada43995f37a73ef2715ddbf6a856 \
+    && git checkout 5012c50dba54e734e007f005456630d0a4aec0ee \
     && cd /opt/ANTs/build \
     && cmake -GNinja -DITK_BUILD_MINC_SUPPORT=ON ../src \
     && cmake --build . \
