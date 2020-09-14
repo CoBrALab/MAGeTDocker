@@ -22,7 +22,7 @@ RUN curl -sSL https://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/minc-toolki
 RUN pip3 install pyminc
 
 # Download and install qbatch
-RUN pip3 install qbatch==2.2
+RUN pip3 install qbatch==2.2.1
 
 ####################################################################################################
 FROM base as builder
