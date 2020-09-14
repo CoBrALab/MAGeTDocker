@@ -38,7 +38,7 @@ RUN apt-get update && apt-get install -y gnupg software-properties-common --no-i
     && rm -rf /var/lib/apt/lists/*
 
 # Download MAGeTBrain
-RUN git clone -b allants https://github.com/CobraLab/MAGeTbrain.git /opt/MAGeTbrain
+RUN git clone -b simplified-labelmask https://github.com/CobraLab/MAGeTbrain.git /opt/MAGeTbrain
 
 #Download and build ANTs
 RUN mkdir -p /opt/ANTs/build && git clone https://github.com/ANTsX/ANTs.git /opt/ANTs/src \
