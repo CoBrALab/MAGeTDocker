@@ -34,7 +34,7 @@ RUN apt-get update && apt-get install -y gnupg software-properties-common --no-i
       build-essential automake libtool bison \
       libz-dev libjpeg-dev libpng-dev libtiff-dev \
       liblcms2-dev flex libx11-dev freeglut3-dev libxmu-dev \
-      libxi-dev libqt4-dev libxml2-dev  \
+      libxi-dev libqt4-dev libxml2-dev ninja-build  \
     && rm -rf /var/lib/apt/lists/*
 
 # Download MAGeTBrain
@@ -45,10 +45,10 @@ RUN mkdir -p /opt/ANTs/build && git clone https://github.com/ANTsX/ANTs.git /opt
     && cd /opt/ANTs/src \
     && git checkout b99b84051c5ada43995f37a73ef2715ddbf6a856 \
     && cd /opt/ANTs/build \
-    && cmake -DITK_BUILD_MINC_SUPPORT=ON ../src \
-    && make \
+    && cmake -GNinja -DITK_BUILD_MINC_SUPPORT=ON ../src \
+    && cmake --build . \
     && cd ANTS-build \
-    && make install
+    && cmake --install .
 
 RUN mkdir -p /opt/minc-stuffs
 RUN curl -sSL https://github.com/Mouse-Imaging-Centre/minc-stuffs/archive/v0.1.25.tar.gz \
