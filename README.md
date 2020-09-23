@@ -1,8 +1,7 @@
 # MAGeTDocker - MAGeTbrain in a docker container for portable local use
-
 -----
 
-This is a docker container which builds a minimal environment that can run the MAGeTbrain program.
+This is a docker container which builds a minimal environment that can run the MAGeTbrain program http://www.github.com/cobralab/MAGeTBrain
 
 The prerequisites for this container are to have a functioning docker or singularity install, see:
 https://docs.docker.com/mac/started/
