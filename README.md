@@ -4,12 +4,13 @@
 
 This is a docker container which builds a minimal environment that can run the MAGeTbrain program.
 
-The prerequisites for this container are to have a functioning docker install, see:
+The prerequisites for this container are to have a functioning docker or singularity install, see:
 https://docs.docker.com/mac/started/
 https://docs.docker.com/linux/started/
 https://docs.docker.com/windows/started/
+https://github.com/hpcng/singularity/releases
 
-The minimal steps for using this container are the following:
+The minimal steps for getting this container are the following:
 
 Get the container from the autobuilds:
 ```sh
@@ -23,7 +24,7 @@ Or build the container yourself:
 > docker build -t magetdocker .
 ```
 
-We also provide a mb-container wrapper which allows you to use a singularity container built from this image
+We also provide a ``mb-container`` wrapper which allows you to use a singularity container built from this image
 as though it were a magetbrain installation. This wrapper relies on the qbatch installed and configured appropraitely
 on the host system.
 
@@ -31,3 +32,8 @@ Usage:
 ```sh
 > mb-container /path/to/container/image.img <regular mb command options>
 ```
+
+# Atlases
+
+MAGeTbrain supports any combination of consistent atlas/label pairs however it has been extensively used and validated
+on the atlases provided by our lab at http://www.github.com/cobralab/atlases
