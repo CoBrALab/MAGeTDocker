@@ -18,6 +18,7 @@ RUN curl -SL https://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/minc-toolkit
     && gdebi -n /tmp/minc-toolkit.deb \
     && rm -f /tmp/minc-toolkit.deb \
     && cd /opt/minc/1.9.17/perl \
+    && curl -sSL https://patch-diff.githubusercontent.com/raw/BIC-MNI/ILT/pull/5.patch | patch -p1 \
     && curl -sSL https://patch-diff.githubusercontent.com/raw/BIC-MNI/ILT/pull/7.diff | patch -p1
 
 #Install bpipe
@@ -133,11 +134,12 @@ ENV MANPATH="/opt/minc/1.9.17/man"
 ENV PATH="${PATH}:/opt/minc/1.9.17/bin:/opt/minc/1.9.17/pipeline"
 ENV MNI_DATAPATH="/opt/minc/1.9.17/../share::/opt/minc/1.9.17/share"
 
+#Generate non-brain mask needed for bpipe
 RUN minccalc -expression 'A[0]==1?0:1' \
      ${QUARANTINE_PATH}/resources/mni_icbm152_nlin_sym_09c_minc2/mni_icbm152_t1_tal_nlin_sym_09c_mask.mnc \
      ${QUARANTINE_PATH}/resources/mni_icbm152_nlin_sym_09c_minc2/mni_icbm152_t1_tal_nlin_sym_09c_antimask.mnc
 
-
+#Generate headmask needed for bpipe/iterativeN4
 RUN ThresholdImage 3 ${QUARANTINE_PATH}/resources/mni_icbm152_nlin_sym_09c_minc2/mni_icbm152_t1_tal_nlin_sym_09c.mnc \
      ${QUARANTINE_PATH}/resources/mni_icbm152_nlin_sym_09c_minc2/mni_icbm152_t1_tal_nlin_sym_09c_headmask.mnc \
      Otsu 4 \
@@ -147,7 +149,6 @@ RUN ThresholdImage 3 ${QUARANTINE_PATH}/resources/mni_icbm152_nlin_sym_09c_minc2
     && iMath 3 ${QUARANTINE_PATH}/resources/mni_icbm152_nlin_sym_09c_minc2/mni_icbm152_t1_tal_nlin_sym_09c_headmask.mnc \
        ME ${QUARANTINE_PATH}/resources/mni_icbm152_nlin_sym_09c_minc2/mni_icbm152_t1_tal_nlin_sym_09c_headmask.mnc \
       3 1 ball 1
-
 
 #Setup so that all commands are run in data directory
 CMD mkdir -p /maget
