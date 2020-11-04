@@ -13,13 +13,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   && ln -sf /usr/bin/python3 /usr/bin/python
 
 #Install minc-toolkit-v2
-RUN curl -SL https://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/minc-toolkit-1.9.17-20190313-Ubuntu_18.04-x86_64.deb \
+RUN curl -SL http://packages.bic.mni.mcgill.ca/minc-toolkit/Debian/minc-toolkit-1.9.18-20200813-Ubuntu_18.04-x86_64.deb \
       -o /tmp/minc-toolkit.deb \
     && gdebi -n /tmp/minc-toolkit.deb \
-    && rm -f /tmp/minc-toolkit.deb \
-    && cd /opt/minc/1.9.17/perl \
-    && curl -sSL https://patch-diff.githubusercontent.com/raw/BIC-MNI/ILT/pull/5.patch | patch -p1 \
-    && curl -sSL https://patch-diff.githubusercontent.com/raw/BIC-MNI/ILT/pull/7.diff | patch -p1
+    && rm -f /tmp/minc-toolkit.deb
 
 #Install bpipe
 RUN curl -SL https://github.com/ssadedin/bpipe/releases/download/0.9.9.9/bpipe-0.9.9.9.tar.gz \
@@ -94,15 +91,14 @@ RUN curl -sSL https://github.com/Mouse-Imaging-Centre/minc-stuffs/archive/v0.1.2
     -o /opt/minc-stuffs/v0.1.25.tar.gz && tar xzvf /opt/minc-stuffs/v0.1.25.tar.gz -C /opt/minc-stuffs
 RUN cd /opt/minc-stuffs/minc-stuffs-0.1.25 \
     && ./autogen.sh \
-    && ./configure --prefix /opt/minc-stuffs --with-build-path=/opt/minc/1.9.17 \
+    && ./configure --prefix /opt/minc-stuffs --with-build-path=/opt/minc/1.9.18 \
     && make && make install
 
 
 ####################################################################################################
 FROM base
 #We only copy the ANTs commands we use, otherwise the container is huge
-COPY --from=builder /opt/ANTs/bin/antsRegistration /opt/ANTs/bin/antsApplyTransforms \
-    /opt/ANTs/bin/ANTS /opt/ANTs/bin/ImageMath /opt/ANTs/bin/iMath /opt/ANTs/bin/
+COPY --from=builder /opt/ANTs/bin/ /opt/ANTs/bin/
 COPY --from=builder /opt/MAGeTbrain /opt/MAGeTbrain
 COPY --from=builder /opt/minc-stuffs /opt/minc-stuffs
 COPY --from=builder /opt/minc-bpipe-library /opt/minc-bpipe-library
@@ -123,16 +119,17 @@ ENV MB_ENV="/opt/MAGeTbrain/"
 ENV QBATCH_SYSTEM="container"
 
 #Variables set by minc-toolkit-config.sh
-ENV LD_LIBRARY_PATH="/opt/minc/1.9.17/lib:/opt/minc/1.9.17/lib/InsightToolkit"
+ENV LD_LIBRARY_PATH="/opt/minc/1.9.18/lib:/opt/minc/1.9.18/lib/InsightToolkit"
 ENV MINC_FORCE_V2=1
-ENV MINC_TOOLKIT_VERSION=1.9.17-20190313
-ENV MINC_TOOLKIT=/opt/minc/1.9.17
+ENV MINC_TOOLKIT_VERSION="1.9.18-20200813"
+ENV MINC_TOOLKIT=/opt/minc/1.9.18
 ENV MINC_COMPRESS=4
 ENV VOLUME_CACHE_THRESHOLD=-1
-ENV PERL5LIB="/opt/minc/1.9.17/perl:/opt/minc/1.9.17/pipeline"
-ENV MANPATH="/opt/minc/1.9.17/man"
-ENV PATH="${PATH}:/opt/minc/1.9.17/bin:/opt/minc/1.9.17/pipeline"
-ENV MNI_DATAPATH="/opt/minc/1.9.17/../share::/opt/minc/1.9.17/share"
+ENV PERL5LIB="/opt/minc/1.9.18/perl:/opt/minc/1.9.18/pipeline"
+ENV MANPATH="/opt/minc/1.9.18/man"
+ENV PATH="${PATH}:/opt/minc/1.9.18/bin:/opt/minc/1.9.18/pipeline"
+ENV MNI_DATAPATH="/opt/minc/1.9.18/../share::/opt/minc/1.9.18/share"
+ENV ANTSPATH=/opt/ANTs/bin
 
 #Generate non-brain mask needed for bpipe
 RUN minccalc -expression 'A[0]==1?0:1' \
