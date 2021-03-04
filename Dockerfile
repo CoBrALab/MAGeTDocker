@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     parallel \
     locales \
     python3-minimal python3-numpy python3-scipy python3-pip python3-setuptools \
+    python3-future \
     gdebi-core curl default-jre-headless unzip patch \
   && rm -rf /var/lib/apt/lists/* \
   && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8 \
@@ -62,7 +63,7 @@ RUN apt-get update && apt-get install -y gnupg software-properties-common --no-i
 # Download MAGeTBrain
 RUN git clone https://github.com/CobraLab/MAGeTbrain.git /opt/MAGeTbrain \
     && cd /opt/MAGeTbrain \
-    git checkout d850944a3b1f9cf9b6c89cc6e1e05724471f1703
+    git checkout ad6e6ab2fbf9dc0ecf66bd94c8d32f51c6b67cb0
 
 # Download minc-bpipe-library
 RUN git clone https://github.com/CoBrALab/minc-bpipe-library.git /opt/minc-bpipe-library \
@@ -79,7 +80,7 @@ RUN git clone https://github.com/CoBrALab/minc-toolkit-extras.git /opt/minc-tool
 #Download and build ANTs
 RUN mkdir -p /opt/ANTs/build && git clone https://github.com/ANTsX/ANTs.git /opt/ANTs/src \
     && cd /opt/ANTs/src \
-    && git checkout 5012c50dba54e734e007f005456630d0a4aec0ee \
+    && git checkout 5f1fab66da8ccfb30d242109aefb8df636698e9d \
     && cd /opt/ANTs/build \
     && cmake -GNinja -DITK_BUILD_MINC_SUPPORT=ON ../src \
     && cmake --build . \
@@ -116,7 +117,7 @@ ENV PATH="/opt/minc-toolkit-extras:/opt/iterativeN4:/opt/ANTs/bin:/opt/bpipe/bpi
 ENV MB_ENV="/opt/MAGeTbrain/"
 
 #Set QBATCH settings
-ENV QBATCH_SYSTEM="container"
+ENV QBATCH_SYSTEM="local"
 
 #Variables set by minc-toolkit-config.sh
 ENV LD_LIBRARY_PATH="/opt/minc/1.9.18/lib:/opt/minc/1.9.18/lib/InsightToolkit"
@@ -150,3 +151,4 @@ RUN ThresholdImage 3 ${QUARANTINE_PATH}/resources/mni_icbm152_nlin_sym_09c_minc2
 #Setup so that all commands are run in data directory
 CMD mkdir -p /maget
 WORKDIR /maget
+
