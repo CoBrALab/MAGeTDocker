@@ -23,6 +23,11 @@ Or build the container yourself:
 > docker build -t magetdocker .
 ```
 
+Build a singularity image from dockerhub
+```
+> singularity build magetdocket.img docker://gdevenyi/magetdocker
+```
+
 We also provide a ``mb-container`` wrapper which allows you to use a singularity container built from this image
 as though it were a magetbrain installation. This wrapper relies on the qbatch installed and configured appropraitely
 on the host system.
