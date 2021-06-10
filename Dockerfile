@@ -63,7 +63,7 @@ RUN apt-get update && apt-get install -y gnupg software-properties-common --no-i
 # Download MAGeTBrain
 RUN git clone https://github.com/CobraLab/MAGeTbrain.git /opt/MAGeTbrain \
     && cd /opt/MAGeTbrain \
-    git checkout ad6e6ab2fbf9dc0ecf66bd94c8d32f51c6b67cb0
+    git checkout 8ffbe5956c54b9bdad4a7b5933c9bf853e56ad5b
 
 # Download minc-bpipe-library
 RUN git clone https://github.com/CoBrALab/minc-bpipe-library.git /opt/minc-bpipe-library \
