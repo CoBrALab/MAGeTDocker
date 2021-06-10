@@ -4,7 +4,8 @@ set -euo pipefail
 container=$1
 shift
 
-export SINGULARITYENV_QBATCH_SYSTEM="container" 
+export SINGULARITYENV_QBATCH_SYSTEM="container"
+export SINGULARITYENV_QBATCH_SCRIPT_FOLDER="magetbrain-container-jobs"
 singularity exec --pwd /maget --cleanenv -B $(pwd):/maget --contain ${container} mb $*
 
 for job in $(ls -tr magetbrain-container-jobs/*meta 2>/dev/null || true)
